@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import StyledComponentsRegistry from "./lib/registry";
 import { ThreeProvider } from "./context/useThreeContext";
-import { SmoothScrollProvider } from "./context/useSmoothScroll";
+import Providers from "./providers/Providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,9 +21,9 @@ export default function RootLayout({
     <html lang='en'>
       <body className={inter.className}>
         <StyledComponentsRegistry>
-          <SmoothScrollProvider>
+          <Providers>
             <ThreeProvider>{children}</ThreeProvider>
-          </SmoothScrollProvider>
+          </Providers>
         </StyledComponentsRegistry>
       </body>
     </html>

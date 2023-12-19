@@ -37,9 +37,8 @@ export type CameraInstance = Camera & {
 
 interface ThreeContextInt {
   modelRef: React.MutableRefObject<THREE.Group | null>;
-  cameraRef: React.MutableRefObject<CameraInstance>;
+  cameraRef: React.MutableRefObject<THREE.PerspectiveCamera>;
   cameraTarget: React.MutableRefObject<THREE.Vector3>;
-  scroller: React.MutableRefObject<HTMLDivElement>;
   isCustomizeVisible: boolean;
   selectedColor: THREE.Color;
   toggleShowCustomizer: () => void;
@@ -50,8 +49,7 @@ const ThreeContext = createContext({} as ThreeContextInt);
 
 export const ThreeProvider: FC<Props> = ({ children }) => {
   const modelRef = useRef<THREE.Group | null>(null);
-  const cameraRef = useRef<CameraInstance>(null!);
-  const scroller = useRef<HTMLDivElement>(null!);
+  const cameraRef = useRef<THREE.PerspectiveCamera>(null!);
   const cameraTarget = useRef<THREE.Vector3>(cameraLookAt_1);
   const [isCustomizeVisible, setIsCustomizeVisible] = useState(false);
   const [selectedColor, setSelectedColor] = useState(colors[0]);
@@ -114,11 +112,7 @@ export const ThreeProvider: FC<Props> = ({ children }) => {
     window.onbeforeunload = function () {
       window.scrollTo(0, 0);
     };
-
-    scroller.current = document.querySelector(
-      ".main-content-wrapper"
-    )! as HTMLDivElement;
-  }, [scroller.current]);
+  }, []);
 
   useEffect(() => {
     if (window.innerWidth > 800) {
@@ -136,7 +130,6 @@ export const ThreeProvider: FC<Props> = ({ children }) => {
         cameraTarget,
         modelRef,
         cameraRef,
-        scroller,
         toggleShowCustomizer,
         changeColor,
       }}

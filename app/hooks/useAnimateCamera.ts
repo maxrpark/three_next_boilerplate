@@ -35,12 +35,11 @@ export const useAnimateCamera = ({
     const timeLine = gsap.timeline({
       defaults: { ease: "none" },
       scrollTrigger: {
-        scroller: ".main-content-wrapper",
         trigger: trigger.current,
         start,
         end,
         scrub: true,
-        // markers: true,
+        markers: true,
       },
     });
 
@@ -71,6 +70,9 @@ export const useAnimateCamera = ({
             cameraTarget.current,
             {
               ...cameraLookAt,
+              onUpdate: () => {
+                console.log("max");
+              },
             },
             "<"
           );
